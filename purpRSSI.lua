@@ -8,9 +8,8 @@ local LED_GROUP2 = {0,1,2,3,4,5,6,7,8,9}
 local function init()
 end
 
-local function fillLeft(ledValue)
-	
-	local numLedsTotal = #LED_GROUP1
+local function fillSlots(ledValue,ledGroup)
+	local numLedsTotal = #ledGroup
 	local segmentSize = 255 / numLedsTotal
 	
   -- Calculate how many LEDs should be lit
@@ -21,40 +20,7 @@ local function fillLeft(ledValue)
   local segment = (ledValue % segmentSize) / segmentSize
   local brightness = math.floor(5 + (segment * 250))
   
-  -- Special case: all LEDs full brightness
-  if ledValue == 255 then
-    numLeds = numLedsTotal
-    brightness = 255
-  end
-
-	-- LEDs are purple
-  for i = 1, numLedsTotal, 1 do
-    local ledIndex = i - 1
-    if ledIndex < numLeds - 1 then
-      setRGBLedColor(LED_GROUP1[i], 255, 0, 255)
-    elseif ledIndex == numLeds - 1 then
-      setRGBLedColor(LED_GROUP1[i], brightness, 0, brightness)
-    else
-      setRGBLedColor(LED_GROUP1[i], 0, 0, 0)
-    end
-  end 
-
-end
-
-local function fillRight(ledValue)
-	
-	local numLedsTotal = #LED_GROUP2
-	local segmentSize = 255 / numLedsTotal
-	
-  -- Calculate how many LEDs should be lit
-  local numLeds = math.floor(ledValue / segmentSize) + 1
-  numLeds = math.max(1, math.min(numLedsTotal, numLeds))
-  
-  -- Calculate brightness for the highest LED
-  local segment = (ledValue % segmentSize) / segmentSize
-  local brightness = math.floor(5 + (segment * 250))
-  
-  -- Special case: at 100% LQ, all LEDs full brightness
+  -- Special case: at all LEDs full brightness
   if ledValue == 255 then
     numLeds = numLedsTotal
     brightness = 255
@@ -64,14 +30,13 @@ local function fillRight(ledValue)
   for i = 1, numLedsTotal, 1 do
     local ledIndex = i - 1
     if ledIndex < numLeds - 1 then
-      setRGBLedColor(LED_GROUP2[i], 255, 0, 255)
+      setRGBLedColor(ledGroup[i], 255, 0, 255)
     elseif ledIndex == numLeds - 1 then
-      setRGBLedColor(LED_GROUP2[i], brightness, 0, brightness)
+      setRGBLedColor(ledGroup[i], brightness, 0, brightness)
     else
-      setRGBLedColor(LED_GROUP2[i], 0, 0, 0)
+      setRGBLedColor(ledGroup[i], 0, 0, 0)
     end
   end 
-
 end
 
 local function calcLEDValue(source)
@@ -92,14 +57,14 @@ local function run()
 	local ledValue2 = calcLEDValue(elrs2RSS)
   
   if not elrs1RSS == nil or elrs1RSS == 0 then
-		fillLeft(0)
+		fillSlots(0,LED_GROUP1)
 	else
-		fillLeft(ledValue1)
+		fillSlots(ledValue1,LED_GROUP1)
 	end
 	if not elrs2RSS == nil or elrs2RSS == 0 then
-		fillRight(0)
+		fillSlots(0,LED_GROUP2)
 	else
-		fillRight(ledValue2)
+		fillSlots(ledValue2,LED_GROUP2)
 	end
   
   applyRGBLedColors()

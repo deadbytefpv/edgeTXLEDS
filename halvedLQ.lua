@@ -2,9 +2,9 @@
 -- This script is based on the throttle indicator on the LED bar
 -- by btastic_fpv
 
-local LED_GROUP1 = {22,21,20}
-local LED_GROUP2 = {23,24,25}
-local LED_COUNT = 3
+local LED_GROUP1 = {10,11,12,13,14,15,16,17,18,19}
+local LED_GROUP2 = {0,1,2,3,4,5,6,7,8,9}
+local LED_COUNT = 10
 
 local function init()
 end
