@@ -11,14 +11,17 @@ A collection of RGBLed Lua Scripts for EdgeTX
 - halvedLQ.lua is the same as fullLQ, but it will use 2 segments. Great for LED Rings.
 
 ## Compatible Radios (with RGB LED Special Function):
-- Radiomaster GX12 (tested)
-- Radiomaster TX15 (tested)
-- Radiomaster TX16S MK3 (tested)
+- RadioMaster GX12 (tested)
+- RadioMaster TX15 (tested)
+- RadioMaster TX16S MK3 (tested)
+- RadioMaster MT12 (tested)
 - HelloRadio V16/R (tested)
 - HelloRadio V14 (tested)
 - FlySky FS-ST16
 - FlySky PA01 (tested)
 - Jumper T15 Pro (tested)
+
+NOTE: Most of the scripts here are ready to go on the new RadioMaster TX16S MK3.
 
 These scripts are inspired by [btastic](https://github.com/btastic/rgb-throttle-edgetx.git)
 
