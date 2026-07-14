@@ -19,20 +19,20 @@ local function fillSlots(ledValue,ledGroup)
   -- Calculate brightness for the highest LED
   local segment = (ledValue % segmentSize) / segmentSize
   local brightness = math.floor(25 + (segment * 230))
-	local brightness2 = math.floor(5 + (segment * 95))
+	local brightness2 = math.floor(5 + (segment * 45))
   
   -- Special case: all LEDs full brightness
   if ledValue == 255 then
     numLeds = numLedsTotal
     brightness = 255
-		brightness2 = 100
+		brightness2 = 50
   end
 	
 	-- LEDs are white
   for i = 1, numLedsTotal, 1 do
     local ledIndex = i - 1
     if ledIndex < numLeds - 1 then
-      setRGBLedColor(ledGroup[i], 255, 100, 0)
+      setRGBLedColor(ledGroup[i], 255, 50, 0)
     elseif ledIndex == numLeds - 1 then
       setRGBLedColor(ledGroup[i], brightness, brightness2, 0)
     else
@@ -64,7 +64,11 @@ local function run()
 		fillSlots(ledValue1,LED_GROUP1)
 	end
 	if not elrs2RSS == nil or elrs2RSS == 0 then
-		fillSlots(0,LED_GROUP2)
+		  if not elrs1RSS == nil or elrs1RSS == 0 then
+				fillSlots(0,LED_GROUP2)
+			else
+				fillSlots(ledValue1,LED_GROUP2)
+			end
 	else
 		fillSlots(ledValue2,LED_GROUP2)
 	end

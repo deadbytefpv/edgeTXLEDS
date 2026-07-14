@@ -64,7 +64,11 @@ local function run()
 		fillSlots(ledValue1,LED_GROUP1)
 	end
 	if not elrs2RSS == nil or elrs2RSS == 0 then
-		fillSlots(0,LED_GROUP2)
+		  if not elrs1RSS == nil or elrs1RSS == 0 then
+				fillSlots(0,LED_GROUP2)
+			else
+				fillSlots(ledValue1,LED_GROUP2)
+			end
 	else
 		fillSlots(ledValue2,LED_GROUP2)
 	end
